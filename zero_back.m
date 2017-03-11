@@ -23,8 +23,11 @@ Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
 
-% Read task target image and calculate size
-targetImage = imread('stimuli/AF/AF_200.jpg');
+% Read random task target image and calculate size
+sourceImages = dir(fullfile(pwd,'stimuli','AF','*.jpg'));
+randomImageIndex = randi([1 size(sourceImages,1)]);
+imageName = fullfile(pwd, 'stimuli', 'AF', sourceImages(randomImageIndex).name);
+targetImage = imread(imageName);
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
 

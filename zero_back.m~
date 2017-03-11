@@ -9,7 +9,7 @@ PsychDefaultSetup(2);
 % Open the window
 PsychImaging('PrepareConfiguration');
 PsychImaging('AddTask', 'Genera', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 730]);
+[window, rect] = PsychImaging('OpenWindow', 0);
 
 % Get the center coordinates of the screen
 [centerX, centerY] = RectCenter(rect);
@@ -19,21 +19,13 @@ PsychImaging('AddTask', 'Genera', 'UseRetinaResolution');
 
 % Display instructions for the task
 instructions = 'Press space when you see the image below.\n';
-Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 80);
-DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
+DrawFormattedText(window, instructions, 'center', screenYpixels * 0.25, 0);
 
-% Read task target image and calculate size
+% Display target image for the task
 targetImage = imread('stimuli/AF/AF_200.jpg');
-[s1, s2, s3] = size(targetImage);
-targetImageX = (screenXpixels - s2) / 2;
-
-% Display target image
 targetImageTexture = Screen('MakeTexture', window, targetImage);
-Screen('DrawTexture', window, targetImageTexture, [],... 
-        [(targetImageX) (screenYpixels * .3)... 
-        (targetImageX + s2) ((screenYpixels * .3) + s1)], 0);
- 
+Screen('DrawTexture', window, targetImageTexture, [], [], 0);
+
 % Flip the screen
 Screen('Flip', window);
 

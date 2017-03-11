@@ -6,6 +6,11 @@ clearvars;
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
 
+% Define black, white, and gray
+black = BlackIndex(0);
+white = WhiteIndex(0);
+grey = white / 2;
+
 % Open the window
 PsychImaging('PrepareConfiguration');
 PsychImaging('AddTask', 'Genera', 'UseRetinaResolution');
@@ -38,6 +43,11 @@ Screen('DrawTexture', window, targetImageTexture, [],...
         (targetImageX + s2) ((screenYpixels * .3) + s1)], 0);
  
 % Flip the screen
+Screen('Flip', window);
+
+WaitSecs(4);
+
+drawFixation(window, rect, 40, black, 4);
 Screen('Flip', window);
 
 WaitSecs(2);

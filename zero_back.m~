@@ -1,0 +1,10 @@
+% Open the window
+[window, rect] = Screen('OpenWindow', 0);
+
+% Display the ins
+instructions = 'Press space when you see the image below.\n';
+DrawFormattedText(window,instructions,'center',rect(4)/2,0);
+Screen('Flip', window);
+
+WaitSecs(2);
+sca;

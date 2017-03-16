@@ -23,7 +23,7 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
  
 % Display instructions for the task
-instructions = 'Press space when you see the image below.\n';
+instructions = 'Press the spacebar when you see the image below.\n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
@@ -59,6 +59,7 @@ WaitSecs(1);
  
 % Display each image followed by fixation cross 
 for ii = 1:length(shuffledImageSampleIdx)
+    % TODO: Do this work beforehand to prevent lag
     image = imread(fullfile(pwd, 'stimuli', 'AF', sourceImages(shuffledImageSampleIdx(ii)).name));
     imageTexture = Screen('MakeTexture', window, image);
     

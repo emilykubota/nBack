@@ -1,3 +1,5 @@
+%% General set-up 
+
 % Clear screen and workspace
 sca;
 close all;
@@ -23,9 +25,11 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
  
 % Get the size of the screen window in pixels
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
- 
+
+%% Unique code for two-back begins here
+
 % Display instructions for the task
-instructions = 'Press the spacebar when you see the image below.\n';
+instructions = 'Press the spacebar when you see an image that \n matches the one presented two prior.\n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
@@ -33,26 +37,44 @@ DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
 % Get names of task source images
 sourceImages = dir(fullfile(pwd,'stimuli', 'AF','*.jpg'));
  
-% Choose random sample of 8 images without replacement
-[imageSample, imageSampleIdx] = datasample(sourceImages, 8, 'Replace', false);
+% Choose random sample of 7 images without replacement
+[imageSample, imageSampleIdx] = datasample(sourceImages, 7, 'Replace', false);
+
+% There is not a target image for 1-back and 2-back, this is for sizing
+% purposes only.   
 targetImage = imread(fullfile(pwd,'stimuli', 'AF', imageSample(1).name));
- 
-% Create the full set of images to display, repeating the target image 3
-% times
-fullImageSampleIdx = [imageSampleIdx imageSampleIdx(1) imageSampleIdx(1)];
-shuffledImageSampleIdx = fullImageSampleIdx(randperm(length(fullImageSampleIdx)));
- 
+
+% Select index randomly to insert target image 3 times
+targetIdx1 = randi(length(imageSampleIdx-2));
+imageSampleIdx1 = [imageSampleIdx(1:(targetIdx1 + 1)) imageSampleIdx(targetIdx1)...
+    imageSampleIdx((targetIdx1 + 2):end)];
+
+targetIdx2 = randi(length(imageSampleIdx1-2));
+imageSampleIdx2 = [imageSampleIdx1(1:(targetIdx2 + 1)) imageSampleIdx1(targetIdx2)...
+    imageSampleIdx1((targetIdx2 + 2):end)];
+
+targetIdx3 = randi(length(imageSampleIdx2-2));
+
+%Final order of images. Named to match what we have in zeroBack for now....
+shuffledImageSampleIdx = [imageSampleIdx2(1:(targetIdx3 + 1)) imageSampleIdx2(targetIdx3)...
+    imageSampleIdx2((targetIdx3 + 2):end)]; 
+
+%% Show images and collect response 
+
+% DO NOT NEED to display target image FOR 1-back and 2-back
+
 % Calculate size and x-coordinate of task image in instructions
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
  
-% Display target image
-targetImageTexture = Screen('MakeTexture', window, targetImage);
-Screen('DrawTexture', window, targetImageTexture, [],... 
-        [(targetImageX) (screenYpixels * .3)... 
-        (targetImageX + s2) ((screenYpixels * .3) + s1)], 0);
-Screen('Flip', window);
-WaitSecs(4);
+% DO NOT NEED to display target image FOR 1-back and 2-back
+
+%targetImageTexture = Screen('MakeTexture', window, targetImage);
+%Screen('DrawTexture', window, targetImageTexture, [],... 
+%        [(targetImageX) (screenYpixels * .3)... 
+%        (targetImageX + s2) ((screenYpixels * .3) + s1)], 0);
+%Screen('Flip', window);
+%WaitSecs(4);
  
 % Draw fixation cross
 drawFixation(window, rect, 40, black, 4);
@@ -84,6 +106,6 @@ for ii = 1:length(shuffledImageSampleIdx)
     Screen('Flip', window);
     WaitSecs(1);
 end
- 
-% Exit
+
+% Exit 
 sca;

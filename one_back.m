@@ -7,13 +7,11 @@ clearvars;
  
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
-
-d = PsychHID ('Devices');
  
 % Define black, white, and gray
 black = BlackIndex(0);
 white = WhiteIndex(0);
-grey = white / 2;
+gray = white / 2;
  
 % Open the window
 PsychImaging('PrepareConfiguration');

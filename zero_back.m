@@ -19,7 +19,7 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 [window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 1024]);
  
 % Get the center coordinates of the screen
-[centerX, centerY] = RectCenter(rect);
+[centerX, centerY] = RectCenter(rect);    
  
 % Get the size of the screen window in pixels
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
@@ -55,7 +55,7 @@ end
 instructions = 'Press the spacebar when you see the image below.\n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
-DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0)
+DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
  
 % Display target image
 targetImageTexture = Screen('MakeTexture', window, targetImage);
@@ -71,24 +71,27 @@ KbWait;
 drawFixation(window, rect, 40, black, 4);
 Screen('Flip', window);
 WaitSecs(1);
- 
+
+fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
-for ii = 1:length(shuffledImageSampleIdx)
-    startTime = GetSecs;    
-     
+for ii = 1:length(shuffledImageSampleIdx)  
     % Draw the image so that its bottom edge aligns with the bottom of the
     % window
     Screen('DrawTexture', window, images(ii), [],... 
         [(targetImageX) (screenYpixels - s1)... 
         (targetImageX + s2) (screenYpixels)], 0);
-    Screen('Flip', window);
-    WaitSecs(1);
     
-    endTime = GetSecs - startTime;
-    [keyIsDown, s, kc   , delta] = KbCheck();
-    g = sprintf('%d ', kc);       
-    fprintf('Answer: %s\n', g)
+    % Save the time the screen was flipped
+    stimulusStartTime = Screen('Flip', window);
     
+    [keyWasPressed, responseTime] = recordKeys(stimulusStartTime, 1);
+    if shuffledImageSampleIdx(ii) == imageSampleIdx(1)
+        wasTarget = 'true';                
+    else         
+        wasTarget = 'false'; 
+    end
+    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget);   
+       
     drawFixation(window, rect, 40, black, 4);
     Screen('Flip', window);
     WaitSecs(1);

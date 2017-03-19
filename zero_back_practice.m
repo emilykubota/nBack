@@ -3,7 +3,7 @@
 % Clear screen and workspace
 sca;
 close all;
-clearvars;
+clearvars;    
  
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
@@ -16,7 +16,7 @@ gray = white / 2;
 % Open the window 
 PsychImaging('PrepareConfiguration');
 PsychImaging('AddTask', 'General', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 720    ]);
+[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 600   ]);
  
 % Get the center coordinates of the screen
 [centerX, centerY] = RectCenter(rect);    
@@ -92,11 +92,20 @@ for ii = 1:length(shuffledImageSampleIdx)
     else         
         wasTarget = 'false'; 
     end
-    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget);   
-       
-    drawFixation(window, rect, 40, black, 4);
-    Screen('Flip', window);
-    WaitSecs(1);
+    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
+    
+    if keyWasPressed == wasTarget 
+        % Green fixation as feedback
+        drawFixation(window, rect, 40, [0 1 0], 4);
+        Screen('Flip', window);
+        WaitSecs(1);
+    else
+        % Red fixation as feedback
+        drawFixation(window, rect, 40, [1 0 0], 4);
+        Screen('Flip', window);
+        WaitSecs(1);  
+    end 
+        
 end
  
 % Exit

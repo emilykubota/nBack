@@ -35,14 +35,14 @@ Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
  
 % Get names of task source images
-sourceImages = dir(fullfile(pwd,'stimuli', 'AF','*.jpg'));
+sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
  
 % Choose random sample of 7 images without replacement
 [imageSample, imageSampleIdx] = datasample(sourceImages, 7, 'Replace', false);
 
 % There is not a target image for 1-back and 2-back, this is for sizing
 % purposes only.   
-targetImage = imread(fullfile(pwd,'stimuli', 'AF', imageSample(1).name));
+targetImage = imread(fullfile(pwd,'stimuli', imageSample(1).name));
 
 % Select index randomly to insert target image 3 times
 targetIdx1 = randi(length(imageSampleIdx));
@@ -86,7 +86,7 @@ for ii = 1:length(shuffledImageSampleIdx)
     startTime = GetSecs;
     
     % TODO: Do this work beforehand to prevent lag
-    image = imread(fullfile(pwd, 'stimuli', 'AF', sourceImages(shuffledImageSampleIdx(ii)).name));
+    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
     imageTexture = Screen('MakeTexture', window, image);
     
     % Draw the image so that its bottom edge aligns with the bottom of the

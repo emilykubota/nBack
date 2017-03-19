@@ -28,6 +28,7 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 
 %% Choose stimuli sample for task
+
 % Choose random sample of 7 images without replacement
 [imageSample, imageSampleIdx] = datasample(sourceImages, 7, 'Replace', false);
 

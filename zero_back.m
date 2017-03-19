@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 %% General set-up
 
->>>>>>> 2844185f14c6822109822e23d3f916c2aa9b68d8
 % Clear screen and workspace
 sca;
 close all;
@@ -10,11 +7,7 @@ clearvars;
  
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 2844185f14c6822109822e23d3f916c2aa9b68d8
 % Define black, white, and gray
 black = BlackIndex(0);
 white = WhiteIndex(0);
@@ -22,13 +15,8 @@ gray = white / 2;
  
 % Open the window 
 PsychImaging('PrepareConfiguration');
-<<<<<<< HEAD
-% PsychI maging('AddTask', 'General', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0);
-=======
 PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 [window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 1024]);
->>>>>>> 2844185f14c6822109822e23d3f916c2aa9b68d8
  
 % Get the center coordinates of the screen
 [centerX, centerY] = RectCenter(rect);    
@@ -51,13 +39,9 @@ targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
 % times
 fullImageSampleIdx = [imageSampleIdx imageSampleIdx(1) imageSampleIdx(1)];
 shuffledImageSampleIdx = fullImageSampleIdx(randperm(length(fullImageSampleIdx)));
-<<<<<<< HEAD
  
-=======
-
 %% Main routine for zero-back task
 
->>>>>>> 2844185f14c6822109822e23d3f916c2aa9b68d8
 % Calculate size and x-coordinate of target image in instructions
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
@@ -82,15 +66,9 @@ Screen('DrawTexture', window, targetImageTexture, [],...
         (targetImageX + s2) (screenYpixels)], 0);
 Screen('Flip', window);
 
-<<<<<<< HEAD
-% Wait until user presses key
-KbWait;
- 
-=======
 % Wait until user presses a key
 KbWait; 
 
->>>>>>> 2844185f14c6822109822e23d3f916c2aa9b68d8
 % Draw fixation cross
 drawFixation(window, rect, 40, black, 4);
 Screen('Flip', window);

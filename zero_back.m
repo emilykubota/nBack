@@ -27,7 +27,7 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 % Get names of task source images
 sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 
-%% Choose sample of stimuli for task
+%% Choose stimuli sample for task
  
 % Choose random sample of 8 images without replacement
 [imageSample, imageSampleIdx] = datasample(sourceImages, 8, 'Replace', false);
@@ -37,12 +37,12 @@ targetImage = imread(fullfile(pwd,'stimuli', imageSample(1).name));
 % times
 fullImageSampleIdx = [imageSampleIdx imageSampleIdx(1) imageSampleIdx(1)];
 shuffledImageSampleIdx = fullImageSampleIdx(randperm(length(fullImageSampleIdx)));
- 
+
+%% Main routine for zero-back task
+
 % Calculate size and x-coordinate of target image in instructions
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
-
-%% Main routine for zero-back task
 
 % Store image textures in an array
 images = [];
@@ -64,7 +64,7 @@ Screen('DrawTexture', window, targetImageTexture, [],...
         (targetImageX + s2) (screenYpixels)], 0);
 Screen('Flip', window);
 
-% Wait until user presses key
+% Wait until user presses a key
 KbWait; 
 
 % Draw fixation cross

@@ -16,7 +16,7 @@ gray = white / 2;
 % Open the window 
 PsychImaging('PrepareConfiguration');
 PsychImaging('AddTask', 'General', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 720    ]);
+[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 600]);
  
 % Get the center coordinates of the screen
 [centerX, centerY] = RectCenter(rect);    
@@ -54,7 +54,7 @@ for ii = 1:length(shuffledImageSampleIdx)
 end
 
 % Display instructions for the task
-instructions = 'Press the spacebar when you see the image below.\n';
+instructions = 'Press the spacebar when you see the image below.\n Press space to begin. ';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);

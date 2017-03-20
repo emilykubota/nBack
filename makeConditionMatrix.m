@@ -9,7 +9,7 @@ if mod(sub_number,6) == 0
     conditionMatrix((2*nruns+1):3*nruns) = 2;
     
     % Second row determines degradation level, first half of trials are
-    % degraded second half are intact 
+    % intact, second half are degraded 
     conditionMatrix(2,1:(nruns/2)) = 0;
     conditionMatrix(2,((nruns/2)+1):nruns) = 1;
     conditionMatrix(2, (nruns+1):(nruns+(nruns/2))) = 0;

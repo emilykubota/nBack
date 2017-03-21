@@ -2,7 +2,7 @@
 
 % Clear screen and workspace
 %sca;
-%close all;
+close all;
 %clearvars;
  
 % Perform standard setup for Psychtoolbox
@@ -24,16 +24,23 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 % Get the size of the screen window in pixels
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 
-% Get names of task source images
-sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
-
+% Get names of task source images depending on stim type
+if stim == 0 
+    sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+else
+    sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
+end 
 %% Choose stimuli sample for task
  
 % Choose random sample of 8 images without replacement
 [imageSample, imageSampleIdx] = datasample(sourceImages, 8, 'Replace', false);
 
 % Choose first image as target image
-targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+if stim == 0
+    targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+else 
+    targetImage = imread(fullfile(pwd, 'degraded', imageSample(1).name));
+end 
  
 % Create the full set of images to display, repeating the target image 3
 % times
@@ -46,11 +53,16 @@ shuffledImageSampleIdx = fullImageSampleIdx(randperm(length(fullImageSampleIdx))
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
 
-% Store image textures in an array
+% Store image textures and filenames in arrays
 images = [];
+filenames = cell(1,length(shuffledImageSampleIdx));
 for ii = 1:length(shuffledImageSampleIdx)
-    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    if stim == 0
+        image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    else 
+        image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
     images(ii) = Screen('MakeTexture', window, image);
+    filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
 end
 
 % Display instructions for the task
@@ -97,13 +109,14 @@ for ii = 1:length(shuffledImageSampleIdx)
     C(mi,1) = {trial};
     C(mi,2) = {0}; 
     C(mi,3) = {stim};
-   % C(mi,4) = {images(ii).name};
+    C(mi,4) = filenames(ii);
     C(mi,5) = {responseTime};  
     if strcmp(keyWasPressed,wasTarget) 
         C(mi,6) = {1};
     else
         C(mi,6) = {0};
     end 
+    raceGender;
     mi = mi + 1;
        
     drawFixation(window, rect, 40, black, 4);
@@ -112,4 +125,4 @@ for ii = 1:length(shuffledImageSampleIdx)
 end
  
 % Exit
-sca;
+%sca;

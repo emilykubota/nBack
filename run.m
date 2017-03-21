@@ -1,59 +1,69 @@
  
 sub_num = input ('Subject number: ');
 
+% Save current directory
+h = pwd;
+
+%% General set-up
+
+% Clear screen and workspace
+sca;
+close all;
+clearvars;
+ 
+% Perform standard setup for Psychtoolbox
+PsychDefaultSetup(2);
+
+% Define black, white, and gray
+black = BlackIndex(0);
+white = WhiteIndex(0);
+gray = white / 2;
+ 
+% Open the window 
+PsychImaging('PrepareConfiguration');
+PsychImaging('AddTask', 'General', 'UseRetinaResolution');
+[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 600]);
+ 
+% Get the center coordinates of the screen
+[centerX, centerY] = RectCenter(rect);    
+ 
+% Get the size of the screen window in pixels
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+
+% Get names of task source images
+sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+
+%% Set experiment parameters 
+
+% Set the number of runs. The script will run each condition this many
+% times. 
 nruns = 1;
+
+% Preallocate a cell array to collect data. There are 10 trials per run and
+% 6 conditions (6*10), which we can muliply by the number of runs. There
+% are 8 different measures being collected. 
 
 C = cell(nruns*60,8);
 
+% This is the master index, which tells us which trial we are on for data
+% collection purposes.
+
 mi = 1;
 
-C(1:10,1) = trial;
-C(1:10,2) = nBack;
-C(1:10,3) = stim;
+% Set condition & run experiment based on subject number 
+setConditon;
+
+% Put data into a table.
+
+T = cell2table(C, 'VariableNames', {'Trial', 'nBack', 'Degradation', 'Image',...
+    'RT', 'Accuracy', 'Race', 'Gender'});
     
-%if mod(sub_number,6) == 0 
-    zero_back_practice
-    for ii = 1:length(nruns) 
-        stim = 0
-        zero_back
-        trial = ii;
-        nBack = 0;
-    end 
-    for ii = 1:length(nruns)
-        %stim_path = degraded 
-        zero_back
-        trial = ii + nruns;
-    end 
-    % TO-D0: transition_screen
-    transition
-    one_back_practice 
-    
-  %  for ii = 1:length(nruns);
-        % stim_path = intact 
-  %     one_back 
-  %    trial = ii + (2*nruns);
-  %  end 
-  %  for ii = 1:length(nruns)
-        % stim_path = degraded 
-  %      one_back 
-  %     trial = ii + (3*nruns);
-  %  end 
-    
-    %Transition screen 
-   % two_back_practice
-   % for ii = 1:length(nruns)
-        % stim_path = intact 
-    %    two_back 
-     %   trial = ii + (4*nruns);
-    %end 
-   % for ii = 1:length(nruns)
-        % stim_path = degraded 
-    %    two_back 
-    %    trial = ii + (5*nruns);
-    %end 
-    
-    
-    
+% Name file using sub_num & write table 
+file_name = sprintf('sub_%d.txt',sub_num);
+
+% move to data file and write table
+cd data 
+writetable(T, file_name)   
         
         
     

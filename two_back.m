@@ -1,31 +1,14 @@
   %% General set-up 
 
-% Clear screen and workspace
-sca;
-close all;
-clearvars;
- 
-% Perform standard setup for Psychtoolbox
-PsychDefaultSetup(2);
- 
-% Define black, white, and gray
-black = BlackIndex(0);
-white = WhiteIndex(0);
-gray = white / 2;
- 
-% Open the window
-PsychImaging('PrepareConfiguration');
-PsychImaging('AddTask', 'General', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0, [],   [0 0 1280 600]);
- 
-% Get the center coordinates of the screen
-[centerX, centerY] = RectCenter(rect);
- 
-% Get the size of the screen window in pixels
-[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+% Clear screens
+%close all;
 
-% Get names of task source images
-sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+% Get names of task source images depending on stim type
+if stim == 0 
+    sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+else
+    sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
+end;
 
 %% Choose stimuli sample for task
 
@@ -34,7 +17,12 @@ sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 
 % There is not a target image for 1-back and 2-back, this is for sizing
 % purposes only
-targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+% Choose first image as target image
+if stim == 0
+    targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+else 
+    targetImage = imread(fullfile(pwd, 'degraded', imageSample(1).name));
+end 
 
 % Select index randomly to insert target image 3 times. Note that in the
 % case that targetIdx1 == targetIdx2, we may have only 2 targets in a
@@ -67,9 +55,15 @@ targetImageX = (screenXpixels - s2) / 2;
 
 % Store image textures in an array
 images = [];
+filenames = cell(1,length(shuffledImageSampleIdx));
 for ii = 1:length(shuffledImageSampleIdx)
-    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    if stim == 0
+        image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    else 
+        image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+    end 
     images(ii) = Screen('MakeTexture', window, image);
+    filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
 end
  
 % Display instructions for the task
@@ -112,7 +106,21 @@ for ii = 1:length(shuffledImageSampleIdx)
         wasTarget = 'false';
     end
         
-    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget);  
+    %fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget);
+    
+    % Fill in data matrix accordingly 
+    C(mi,1) = {trial}; %trialnumber
+    C(mi,2) = {2};     %task (0,1,2)
+    C(mi,3) = {stim};  %intact(0), degraded(1)
+    C(mi,4) = filenames(ii);
+    C(mi,5) = {responseTime};  
+    if strcmp(keyWasPressed,wasTarget) %accuracy
+        C(mi,6) = {1};
+    else
+        C(mi,6) = {0};
+    end 
+    raceGender;
+    mi = mi + 1;
         
     drawFixation(window, rect, 40, black, 4);
     Screen('Flip', window);
@@ -120,4 +128,4 @@ for ii = 1:length(shuffledImageSampleIdx)
 end
 
 % Exit 
-sca;
+%sca;

@@ -1,35 +1,16 @@
 %% General set-up
 
-% Clear screen and workspace
-%sca;
-close all;
-%clearvars;
- 
-% Perform standard setup for Psychtoolbox
-PsychDefaultSetup(2);
+% Clear screens
 
-% Define black, white, and gray
-black = BlackIndex(0);
-white = WhiteIndex(0);
-gray = white / 2;
- 
-% Open the window 
-PsychImaging('PrepareConfiguration');
-PsychImaging('AddTask', 'General', 'UseRetinaResolution');
-[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 600]);
- 
-% Get the center coordinates of the screen
-[centerX, centerY] = RectCenter(rect);    
- 
-% Get the size of the screen window in pixels
-[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+% close all;
 
 % Get names of task source images depending on stim type
 if stim == 0 
     sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 else
     sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
-end 
+end;
+
 %% Choose stimuli sample for task
  
 % Choose random sample of 8 images without replacement
@@ -61,6 +42,7 @@ for ii = 1:length(shuffledImageSampleIdx)
         image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
     else 
         image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+    end 
     images(ii) = Screen('MakeTexture', window, image);
     filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
 end
@@ -86,7 +68,7 @@ drawFixation(window, rect, 40, black, 4);
 Screen('Flip', window);
 WaitSecs(1);
 
-fprintf('pressed,time,correct\n');
+%fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
 for ii = 1:length(shuffledImageSampleIdx) 
     % Draw the image so that its bottom edge aligns with the bottom of the
@@ -104,21 +86,22 @@ for ii = 1:length(shuffledImageSampleIdx)
     else         
         wasTarget = 'false'; 
     end
-    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
+    %fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
     
-    C(mi,1) = {trial};
-    C(mi,2) = {0}; 
-    C(mi,3) = {stim};
+    % Fill in data matrix accordingly 
+    C(mi,1) = {trial}; %trial num ber
+    C(mi,2) = {0};     %task (0,1,2)
+    C(mi,3) = {stim};  %intact(0), degraded(1)
     C(mi,4) = filenames(ii);
     C(mi,5) = {responseTime};  
-    if strcmp(keyWasPressed,wasTarget) 
+    if strcmp(keyWasPressed,wasTarget) %accuracy
         C(mi,6) = {1};
     else
         C(mi,6) = {0};
     end 
     raceGender;
     mi = mi + 1;
-       
+        
     drawFixation(window, rect, 40, black, 4);
     Screen('Flip', window);
     WaitSecs(1);

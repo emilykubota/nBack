@@ -1,32 +1,10 @@
 %% General set-up 
 
-% Clear screen and workspace
-%sca;
-%close all;    
-%clearvars;
- 
-% Perform standard setup for Psychtoolbox
-PsychDefaultSetup(2);
- 
-% Define black, white, and gray
-black = BlackIndex(0);
-white = WhiteIndex(0);
-gray = white / 2;
- 
-% Open the window
-%PsychImaging('PrepareConfiguration');
-%PsychImaging('AddTask', 'General', 'UseRetinaResolution');
-%[window, rect] = PsychImaging('OpenWindow', 0, [], [0 0 1280 600]);
- 
-% Get the center coordinates of the screen
-[centerX, centerY] = RectCenter(rect);
- 
-% Get the size of the screen window in pixels
-[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+% Clear screens
 
-% Get names of task source images
+% close all;
+
 sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
-
 %% Choose stimuli sample for task
 
 % Choose random sample of 7 images without replacement
@@ -124,5 +102,5 @@ for ii = 1:length(shuffledImageSampleIdx)
 end
 
 % Exit
-sca;
+%sca;
 

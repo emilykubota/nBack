@@ -16,5 +16,3 @@ DrawFormattedText(window, ready, 'center', 'center', 0);
 Screen('Flip', window);
 
 KbWait;
-
-sca;

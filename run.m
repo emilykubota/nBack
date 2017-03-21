@@ -1,8 +1,4 @@
- 
-sub_num = input ('Subject number: ');
 
-% Save current directory
-h = pwd;
 
 %% General set-up
 
@@ -10,7 +6,13 @@ h = pwd;
 sca;
 close all;
 clearvars;
- 
+
+% Save current directory
+h = pwd;
+
+% Get subject number from user
+sub_num = input ('Subject number: ');
+
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
 
@@ -30,9 +32,6 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution');
 % Get the size of the screen window in pixels
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 
-% Get names of task source images
-sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
-
 %% Set experiment parameters 
 
 % Set the number of runs. The script will run each condition this many
@@ -51,7 +50,7 @@ C = cell(nruns*60,8);
 mi = 1;
 
 % Set condition & run experiment based on subject number 
-setConditon;
+setCondition;
 
 % Put data into a table.
 

@@ -1,9 +1,9 @@
 %% General set-up
 
 % Clear screen and workspace
-sca;
-close all;
-clearvars;
+%sca;
+%close all;
+%clearvars;
  
 % Perform standard setup for Psychtoolbox
 PsychDefaultSetup(2);
@@ -76,7 +76,7 @@ WaitSecs(1);
 
 fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
-for ii = 1:length(shuffledImageSampleIdx)  
+for ii = 1:length(shuffledImageSampleIdx) 
     % Draw the image so that its bottom edge aligns with the bottom of the
     % window
     Screen('DrawTexture', window, images(ii), [],... 
@@ -92,7 +92,19 @@ for ii = 1:length(shuffledImageSampleIdx)
     else         
         wasTarget = 'false'; 
     end
-    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget);   
+    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
+    
+    C(mi,1) = {trial};
+    C(mi,2) = {0}; 
+    C(mi,3) = {stim};
+   % C(mi,4) = {images(ii).name};
+    C(mi,5) = {responseTime};  
+    if strcmp(keyWasPressed,wasTarget) 
+        C(mi,6) = {1};
+    else
+        C(mi,6) = {0};
+    end 
+    mi = mi + 1;
        
     drawFixation(window, rect, 40, black, 4);
     Screen('Flip', window);

@@ -1,4 +1,4 @@
-%% General set-up 
+ %% General set-up 
 
 % Clear screen and workspace
 sca;

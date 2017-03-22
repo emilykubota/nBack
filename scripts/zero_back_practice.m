@@ -4,12 +4,8 @@
 
 % close all;
 
-% Get names of task source images depending on stim type
-if stim == 0 
-    sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
-else
-    sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
-end;
+% Get names of task source images
+sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 
 %% Choose stimuli sample for task
  
@@ -17,11 +13,7 @@ end;
 [imageSample, imageSampleIdx] = datasample(sourceImages, 8, 'Replace', false);
 
 % Choose first image as target image
-if stim == 0
-    targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
-else 
-    targetImage = imread(fullfile(pwd, 'degraded', imageSample(1).name));
-end 
+targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
  
 % Create the full set of images to display, repeating the target image 3
 % times
@@ -34,21 +26,15 @@ shuffledImageSampleIdx = fullImageSampleIdx(randperm(length(fullImageSampleIdx))
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
 
-% Store image textures and filenames in arrays
+% Store image textures in an array
 images = [];
-filenames = cell(1,length(shuffledImageSampleIdx));
 for ii = 1:length(shuffledImageSampleIdx)
-    if stim == 0
-        image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
-    else 
-        image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
-    end 
+    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
     images(ii) = Screen('MakeTexture', window, image);
-    filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
 end
 
 % Display instructions for the task
-instructions = 'Press the spacebar when you see the image below.\n Press space to begin. ';
+instructions = 'Press the spacebar when you see the image below.\n This is a practice. Press space to begin.  \n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
@@ -68,9 +54,9 @@ drawFixation(window, rect, 40, black, 4);
 Screen('Flip', window);
 WaitSecs(1);
 
-%fprintf('pressed,time,correct\n');
+fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
-for ii = 1:length(shuffledImageSampleIdx) 
+for ii = 1:length(shuffledImageSampleIdx)  
     % Draw the image so that its bottom edge aligns with the bottom of the
     % window
     Screen('DrawTexture', window, images(ii), [],... 
@@ -86,26 +72,25 @@ for ii = 1:length(shuffledImageSampleIdx)
     else         
         wasTarget = 'false'; 
     end
-    %fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
+    fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
     
-    % Fill in data matrix accordingly 
-    C(mi,1) = {trial}; %trial num ber
-    C(mi,2) = {0};     %task (0,1,2)
-    C(mi,3) = {stim};  %intact(0), degraded(1)
-    C(mi,4) = filenames(ii);
-    C(mi,5) = {responseTime};  
-    if strcmp(keyWasPressed,wasTarget) %accuracy
-        C(mi,6) = {1};
+    % Displays a red or green fixation depending on whether the response is
+    % correct. 
+    
+    if strcmp    (keyWasPressed,wasTarget)
+        % Green fixation as feedback
+        drawFixation(window, rect, 40, [0 1 0], 4);
+        Screen('Flip', window);
+        WaitSecs(1);
     else
-        C(mi,6) = {0};
-    end 
-    raceGender;
-    mi = mi + 1;
+        % Red fixation as feedback
+        drawFixation(window, rect, 40, [1 0 0], 4);
+        Screen('Flip', window);
+        WaitSecs(1);  
+    end    
         
-    drawFixation(window, rect, 40, black, 4);
-    Screen('Flip', window);
-    WaitSecs(1);
 end
+
  
 % Exit
 %sca;

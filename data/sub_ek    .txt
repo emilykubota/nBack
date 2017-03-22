@@ -1,0 +1,11 @@
+Trial,nBack,Degradation,Image,RT,Accuracy,Race,Gender
+1,1,1,CFD-WF-025-019-N_degraded.jpg,NaN,1,White,Female
+1,1,1,CFD-AM-245-111-N_degraded.jpg,NaN,1,Asian,Male
+1,1,1,CFD-WM-021-001-N_degraded.jpg,NaN,1,White,Male
+1,1,1,CFD-WM-021-001-N_degraded.jpg,0.691278178999937,1,White,Male
+1,1,1,CFD-BF-235-168-N_degraded.jpg,NaN,1,Black,Female
+1,1,1,CFD-BF-235-168-N_degraded.jpg,0.714449867999974,1,Black,Female
+1,1,1,CFD-AM-227-184-N_degraded.jpg,NaN,1,Asian,Male
+1,1,1,CFD-AM-252-114-N_degraded.jpg,NaN,1,Asian,Male
+1,1,1,CFD-AM-252-114-N_degraded.jpg,0.378765887999862,1,Asian,Male
+1,1,1,CFD-LF-238-154-N_degraded.jpg,NaN,1,Latino,Female

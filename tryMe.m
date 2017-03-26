@@ -81,4 +81,8 @@ cd(h)
 cd data 
 writetable(T, file_name)
 cd(h)
+
+% Close all screens 
+
+Screen('Close');
         

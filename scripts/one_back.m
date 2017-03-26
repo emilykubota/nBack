@@ -5,11 +5,10 @@
 
 % Get names of task source images depending on stim type
 if stim == 0 
-    sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+    sourceImages = dir(fullfile(pwd,'../stimuli','intact','*.jpg'));
 else
-    sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'degraded','*.jpg'));
 end;
-
 %% Choose stimuli sample for task
 
 % Choose random sample of 7 images without replacement
@@ -19,9 +18,9 @@ end;
 % purposes only.
 % Choose first image as target image
 if stim == 0
-    targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+    targetImage = imread(fullfile(pwd, '../stimuli', 'intact', imageSample(1).name));
 else 
-    targetImage = imread(fullfile(pwd, 'degraded', imageSample(1).name));
+    targetImage = imread(fullfile(pwd, '../stimuli', 'degraded', imageSample(1).name));
 end 
 
 % Select index randomly to insert target image 3 times
@@ -51,9 +50,9 @@ images = [];
 filenames = cell(1,length(shuffledImageSampleIdx));
 for ii = 1:length(shuffledImageSampleIdx)
     if stim == 0
-        image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+        image = imread(fullfile(pwd, '../stimuli', 'intact', sourceImages(shuffledImageSampleIdx(ii)).name));
     else 
-        image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+        image = imread(fullfile(pwd, '../stimuli','degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
     end 
     images(ii) = Screen('MakeTexture', window, image);
     filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
@@ -63,7 +62,7 @@ end
 instructions = 'Press the spacebar when you see an image repeat twice in a row.\n Press space to begin.\n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
-DrawFormattedText(window, instructions, 'center', 'center', 0);
+DrawFormattedText(window, instructions, 'center','center', 0, [], [], [], 1.5);
 Screen('Flip', window);
  
 % Wait until user presses a key
@@ -119,6 +118,8 @@ for ii = 1:length(shuffledImageSampleIdx)
     Screen('Flip', window);
     WaitSecs(1);
 end
+
+Screen('Close');
 
 % Exit
 %sca;

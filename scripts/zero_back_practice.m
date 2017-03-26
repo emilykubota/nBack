@@ -5,7 +5,11 @@
 % close all;
 
 % Get names of task source images
-sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+if stim == 0 
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'intact','*.jpg'));
+else
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'degraded','*.jpg'));
+end;
 
 %% Choose stimuli sample for task
  
@@ -13,7 +17,11 @@ sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 [imageSample, imageSampleIdx] = datasample(sourceImages, 8, 'Replace', false);
 
 % Choose first image as target image
-targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+if stim == 0
+    targetImage = imread(fullfile(pwd, '../stimuli','intact', imageSample(1).name));
+else 
+    targetImage = imread(fullfile(pwd, '../stimuli','degraded', imageSample(1).name));
+end 
  
 % Create the full set of images to display, repeating the target image 3
 % times
@@ -29,15 +37,19 @@ targetImageX = (screenXpixels - s2) / 2;
 % Store image textures in an array
 images = [];
 for ii = 1:length(shuffledImageSampleIdx)
-    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    if stim == 0
+        image = imread(fullfile(pwd, '../stimuli', 'intact', sourceImages(shuffledImageSampleIdx(ii)).name));
+    else 
+        image = imread(fullfile(pwd, '../stimuli','degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+    end 
     images(ii) = Screen('MakeTexture', window, image);
 end
 
 % Display instructions for the task
 instructions = 'Press the spacebar when you see the image below.\n This is a practice. Press space to begin.  \n';
 Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 80);
-DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
+Screen('TextSize', window, 60);
+DrawFormattedText(window, instructions, 'center', .25 * screenYpixels);
  
 % Display target image
 targetImageTexture = Screen('MakeTexture', window, targetImage);
@@ -90,6 +102,7 @@ for ii = 1:length(shuffledImageSampleIdx)
     end    
         
 end
+Screen('Close');
 
  
 % Exit

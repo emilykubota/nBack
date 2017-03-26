@@ -3,14 +3,15 @@
 %% Condition 1 
 
 if mod(sub_num,6) == 0 
+    stim = 0; % 0 = intact, 1 = degraded
     zero_back_practice
-    for ri = 1:length(nruns) 
-        stim = 0; %0 = intact, 1 = degraded
+    for ri = 1:nruns 
         trial = ri;
         zero_back
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1; 
+    zero_back_practice
+    for ri = 1:nruns
         trial = ri + nruns;
         zero_back
     end 
@@ -19,14 +20,15 @@ if mod(sub_num,6) == 0
     transition
     
     %Move on to next task
+    stim = 0;
     one_back_practice 
-    for ri = 1:length(nruns);
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         one_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1; 
+    one_back_practice
+    for ri = 1:nruns
         trial = ri + (3*nruns);
         one_back 
     end 
@@ -35,28 +37,30 @@ if mod(sub_num,6) == 0
     transition
     
     % Final task
+    stim = 0;
     two_back_practice
-    for ri = 1:length(nruns)
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         two_back 
     end
-    for ri = 1:length(nruns)
-        stim = 1; 
+    stim = 1;
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         two_back 
     end  
   
 %% Condition two
 elseif mod(sub_num,5) == 0 
+    stim = 0;
     one_back_practice
-    for ri = 1:length(nruns) 
-        stim = 0; %0 = intact, 1 = degraded
+    for ri = 1:nruns
         trial = ri;
         one_back
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1;
+    one_back_practice 
+    for ri = 1:nruns
         trial = ri + nruns;
         one_back
     end 
@@ -65,14 +69,15 @@ elseif mod(sub_num,5) == 0
     transition
     
     %Move on to next task
+    stim = 0;
     two_back_practice 
-    for ri = 1:length(nruns);
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         two_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1;
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + (3*nruns);
         two_back 
     end 
@@ -81,14 +86,15 @@ elseif mod(sub_num,5) == 0
     transition
     
     % Final task
+    stim = 0;
     zero_back_practice
-    for ri = 1:length(nruns)
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         zero_back 
     end
-    for ri = 1:length(nruns)
-        stim = 1; 
+    stim = 1; 
+    zero_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         zero_back 
     end 
@@ -96,14 +102,15 @@ elseif mod(sub_num,5) == 0
  
  %% Condition 3
 elseif mod(sub_num,4) == 0 
+    stim = 0; %0 = intact, 1 = degraded
     two_back_practice
-    for ri = 1:length(nruns) 
-        stim = 0; %0 = intact, 1 = degraded
+    for ri = 1:nruns
         trial = ri;
         two_back
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1;
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + nruns;
         two_back
     end 
@@ -112,14 +119,15 @@ elseif mod(sub_num,4) == 0
     transition
     
     %Move on to next task
+    stim = 0;
     zero_back_practice 
-    for ri = 1:length(nruns);
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         zero_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 1;
+    stim = 1;
+    zero_back_practice
+    for ri = 1:nruns
         trial = ri + (3*nruns);
         zero_back 
     end 
@@ -128,14 +136,15 @@ elseif mod(sub_num,4) == 0
     transition
     
     % Final task
+    stim = 0;
     one_back_practice
-    for ri = 1:length(nruns)
-        stim = 0;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         one_back 
     end
-    for ri = 1:length(nruns)
-        stim = 1; 
+    stim = 1; 
+    one_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         one_back 
     end 
@@ -144,14 +153,15 @@ elseif mod(sub_num,4) == 0
     %% Condition 4 
     
 elseif mod(sub_num,3) == 0 
+    stim = 1;
     zero_back_practice
-    for ri = 1:length(nruns) 
-        stim = 1; %0 = intact, 1 = degraded
+    for ri = 1:nruns
         trial = ri;
         zero_back
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
+    stim = 0;
+    zero_back_practice
+    for ri = 1:nruns
         trial = ri + nruns;
         zero_back
     end 
@@ -160,14 +170,15 @@ elseif mod(sub_num,3) == 0
     transition
     
     %Move on to next task
+    stim = 1;
     two_back_practice 
-    for ri = 1:length(nruns);
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         two_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
+    stim = 0;
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + (3*nruns);
         two_back 
     end 
@@ -176,28 +187,30 @@ elseif mod(sub_num,3) == 0
     transition
     
     % Final task
+    stim = 1;
     one_back_practice
-    for ri = 1:length(nruns)
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         one_back 
     end
-    for ri = 1:length(nruns)
-        stim = 0; 
+    stim = 0; 
+    one_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         one_back 
     end 
 
 %% Condition 5 
 elseif mod(sub_num,2) == 0 
+    stim = 1;
     one_back_practice
-    for ri = 1:length(nruns) 
-        stim = 1; %0 = intact, 1 = degraded
+    for ri = 1:nruns
         trial = ri;
         one_back
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
+    stim = 0;
+    one_back_practice
+    for ri = 1:nruns
         trial = ri + nruns;
         one_back
     end 
@@ -206,15 +219,16 @@ elseif mod(sub_num,2) == 0
     transition
     
     %Move on to next task
+    stim = 1;
     zero_back_practice 
-    for ri = 1:length(nruns);
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         zero_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
-         trial = ri + (3*nruns);
+    stim = 0;
+    zero_back_practice
+    for ri = 1:nruns
+        trial = ri + (3*nruns);
         zero_back
     end 
     
@@ -222,28 +236,30 @@ elseif mod(sub_num,2) == 0
     transition
     
     % Final task
+    stim = 1;
     two_back_practice
-    for ri = 1:length(nruns)
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         two_back 
     end
-    for ri = 1:length(nruns)
-        stim = 0; 
+    stim = 0; 
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         two_back
     end 
     
 %% Condition 6 
 else 
+    stim = 1;
     two_back_practice
-    for ri = 1:length(nruns) 
-        stim = 1; %0 = intact, 1 = degraded
+    for ri = 1:nruns
         trial = ri;
         two_back
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
+    stim = 0;
+    two_back_practice
+    for ri = 1:nruns
         trial = ri + nruns;
         two_back
     end 
@@ -252,14 +268,15 @@ else
     transition
     
     %Move on to next task
+    stim = 1;
     one_back_practice 
-    for ri = 1:length(nruns);
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (2*nruns);
         one_back 
     end 
-    for ri = 1:length(nruns)
-        stim = 0;
+    stim = 0;
+    one_back_practice
+    for ri = 1:nruns
         trial = ri + (3*nruns);
         one_back 
     end 
@@ -268,14 +285,15 @@ else
     transition
     
     % Final task
+    stim = 1;
     zero_back_practice
-    for ri = 1:length(nruns)
-        stim = 1;
+    for ri = 1:nruns
         trial = ri + (4*nruns);
         zero_back 
     end
-    for ri = 1:length(nruns)
-        stim = 0; 
+    stim = 0; 
+    zero_back_practice
+    for ri = 1:nruns
         trial = ri + (5*nruns);
         zero_back 
     end 

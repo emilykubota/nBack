@@ -3,7 +3,11 @@
 % Clear screens
 % close all;
 
-sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+if stim == 0 
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'intact','*.jpg'));
+else
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'degraded','*.jpg'));
+end;
 
 %% Choose stimuli sample for task
 
@@ -12,7 +16,11 @@ sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
 
 % There is not a target image for 1-back and 2-back, this is for sizing
 % purposes only
-targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+if stim == 0
+    targetImage = imread(fullfile(pwd, '../stimuli','intact', imageSample(1).name));
+else 
+    targetImage = imread(fullfile(pwd, '../stimuli','degraded', imageSample(1).name));
+end 
 
 % Select index randomly to insert target image 3 times. Note that in the
 % case that targetIdx1 == targetIdx2, we may have only 2 targets in a
@@ -46,15 +54,19 @@ targetImageX = (screenXpixels - s2) / 2;
 % Store image textures in an array
 images = [];
 for ii = 1:length(shuffledImageSampleIdx)
-    image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+    if stim == 0
+        image = imread(fullfile(pwd, '../stimuli', 'intact', sourceImages(shuffledImageSampleIdx(ii)).name));
+    else 
+        image = imread(fullfile(pwd, '../stimuli','degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+    end 
     images(ii) = Screen('MakeTexture', window, image);
 end
  
 % Display instructions for the task
-instructions = 'Press the spacebar when you see an image that \n matches the one presented two prior.\n This is a practice.\n Press space to begin.     ';
+instructions = 'Press the spacebar when you see an image that \n matches the one presented two prior.\n This is a practice.\n Press space to begin.';
 Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 80);
-DrawFormattedText(window, instructions, 'center', 'center', 0);
+Screen('TextSize', window, 60);
+DrawFormattedText(window, instructions, 'center', 'center', 0, [], [], [], 1.5);
 Screen('Flip', window);
 
 % Wait until user presses a key
@@ -104,6 +116,7 @@ for ii = 1:length(shuffledImageSampleIdx)
         WaitSecs(1);  
     end    
 end
+Screen('Close');
 
 % Exit 
 %sca;

@@ -6,9 +6,9 @@
 
 % Get names of task source images depending on stim type
 if stim == 0 
-    sourceImages = dir(fullfile(pwd,'stimuli','*.jpg'));
+    sourceImages = dir(fullfile(pwd,'../stimuli','intact','*.jpg'));
 else
-    sourceImages = dir(fullfile(pwd,'degraded','*.jpg'));
+    sourceImages = dir(fullfile(pwd,'../stimuli', 'degraded','*.jpg'));
 end;
 %% Choose stimuli sample for task
  
@@ -17,9 +17,9 @@ end;
 
 % Choose first image as target image
 if stim == 0
-    targetImage = imread(fullfile(pwd, 'stimuli', imageSample(1).name));
+    targetImage = imread(fullfile(pwd, '../stimuli', 'intact', imageSample(1).name));
 else 
-    targetImage = imread(fullfile(pwd, 'degraded', imageSample(1).name));
+    targetImage = imread(fullfile(pwd, '../stimuli', 'degraded', imageSample(1).name));
 end 
  
 % Create the full set of images to display, repeating the target image 3
@@ -38,9 +38,9 @@ images = [];
 filenames = cell(1,length(shuffledImageSampleIdx));
 for ii = 1:length(shuffledImageSampleIdx)
     if stim == 0
-        image = imread(fullfile(pwd, 'stimuli', sourceImages(shuffledImageSampleIdx(ii)).name));
+        image = imread(fullfile(pwd, '../stimuli', 'intact', sourceImages(shuffledImageSampleIdx(ii)).name));
     else 
-        image = imread(fullfile(pwd, 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
+        image = imread(fullfile(pwd, '../stimuli', 'degraded', sourceImages(shuffledImageSampleIdx(ii)).name));
     end 
     images(ii) = Screen('MakeTexture', window, image);
     filenames(ii) = {sourceImages(shuffledImageSampleIdx(ii)).name};
@@ -49,7 +49,7 @@ end
 % Display instructions for the task
 instructions = 'Press the spacebar when you see the image below.\n Press space to begin. ';
 Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 70);
+Screen('TextSize', window, 60);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
  
 % Display target image
@@ -111,5 +111,5 @@ end
 
 % Close screens so textures do not remain open
 
-Screen('CloseAll');
+Screen('Close');
 

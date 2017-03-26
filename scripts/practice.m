@@ -46,6 +46,3 @@ two_back_practice
 
 % Close all screens 
 Screen('Close')
-
-% Exit 
-%sca;

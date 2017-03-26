@@ -10,7 +10,6 @@ if mod(sub_num,6) == 0
         zero_back
     end 
     stim = 1; 
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + nruns;
         zero_back
@@ -27,7 +26,6 @@ if mod(sub_num,6) == 0
         one_back 
     end 
     stim = 1; 
-    one_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         one_back 
@@ -44,7 +42,6 @@ if mod(sub_num,6) == 0
         two_back 
     end
     stim = 1;
-    two_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         two_back 
@@ -59,7 +56,6 @@ elseif mod(sub_num,5) == 0
         one_back
     end 
     stim = 1;
-    one_back_practice 
     for ri = 1:nruns
         trial = ri + nruns;
         one_back
@@ -76,7 +72,6 @@ elseif mod(sub_num,5) == 0
         two_back 
     end 
     stim = 1;
-    two_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         two_back 
@@ -93,7 +88,6 @@ elseif mod(sub_num,5) == 0
         zero_back 
     end
     stim = 1; 
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         zero_back 
@@ -109,7 +103,6 @@ elseif mod(sub_num,4) == 0
         two_back
     end 
     stim = 1;
-    two_back_practice
     for ri = 1:nruns
         trial = ri + nruns;
         two_back
@@ -126,7 +119,6 @@ elseif mod(sub_num,4) == 0
         zero_back 
     end 
     stim = 1;
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         zero_back 
@@ -143,7 +135,6 @@ elseif mod(sub_num,4) == 0
         one_back 
     end
     stim = 1; 
-    one_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         one_back 
@@ -160,7 +151,6 @@ elseif mod(sub_num,3) == 0
         zero_back
     end 
     stim = 0;
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + nruns;
         zero_back
@@ -177,7 +167,6 @@ elseif mod(sub_num,3) == 0
         two_back 
     end 
     stim = 0;
-    two_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         two_back 
@@ -194,7 +183,6 @@ elseif mod(sub_num,3) == 0
         one_back 
     end
     stim = 0; 
-    one_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         one_back 
@@ -209,7 +197,6 @@ elseif mod(sub_num,2) == 0
         one_back
     end 
     stim = 0;
-    one_back_practice
     for ri = 1:nruns
         trial = ri + nruns;
         one_back
@@ -226,7 +213,6 @@ elseif mod(sub_num,2) == 0
         zero_back 
     end 
     stim = 0;
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         zero_back
@@ -243,7 +229,6 @@ elseif mod(sub_num,2) == 0
         two_back 
     end
     stim = 0; 
-    two_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         two_back
@@ -258,7 +243,6 @@ else
         two_back
     end 
     stim = 0;
-    two_back_practice
     for ri = 1:nruns
         trial = ri + nruns;
         two_back
@@ -275,7 +259,6 @@ else
         one_back 
     end 
     stim = 0;
-    one_back_practice
     for ri = 1:nruns
         trial = ri + (3*nruns);
         one_back 
@@ -292,7 +275,6 @@ else
         zero_back 
     end
     stim = 0; 
-    zero_back_practice
     for ri = 1:nruns
         trial = ri + (5*nruns);
         zero_back 

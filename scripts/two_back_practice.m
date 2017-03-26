@@ -1,8 +1,5 @@
 %% General set-up 
 
-% Clear screens
-% close all;
-
 if stim == 0 
     sourceImages = dir(fullfile(pwd,'../stimuli', 'intact','*.jpg'));
 else
@@ -50,6 +47,8 @@ shuffledImageSampleIdx = [imageSampleIdx2(1:(targetIdx3 + 1)) imageSampleIdx2(ta
 % Calculate size and x-coordinate of task image in instructions
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
+targetImageY = (screenYpixels - s1)/ 2;
+
 
 % Store image textures in an array
 images = [];
@@ -80,11 +79,10 @@ WaitSecs(1);
 fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
 for ii = 1:length(shuffledImageSampleIdx)
-% Draw the image so that its bottom edge aligns with the bottom of the
-    % window
-    Screen('DrawTexture', window, images(ii), [],... 
-        [(targetImageX) (screenYpixels - s1)... 
-        (targetImageX + s2) (screenYpixels)], 0);
+% Draw the texture so that it is centered
+   Screen('DrawTexture', window, images(ii), [],... 
+        [(targetImageX) (targetImageY)... 
+        (targetImageX + s2) (targetImageY + s1)], 0);
     
     % Save the time the screen was flipped
     stimulusStartTime = Screen('Flip', window);
@@ -117,6 +115,3 @@ for ii = 1:length(shuffledImageSampleIdx)
     end    
 end
 Screen('Close');
-
-% Exit 
-%sca;

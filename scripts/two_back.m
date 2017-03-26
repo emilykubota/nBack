@@ -1,8 +1,5 @@
   %% General set-up 
 
-% Clear screens
-%close all;
-
 % Get names of task source images depending on stim type
 if stim == 0 
     sourceImages = dir(fullfile(pwd,'../stimuli', 'intact','*.jpg'));
@@ -52,6 +49,7 @@ shuffledImageSampleIdx = [imageSampleIdx2(1:(targetIdx3 + 1)) imageSampleIdx2(ta
 % Calculate size and x-coordinate of task image in instructions
 [s1, s2, s3] = size(targetImage);
 targetImageX = (screenXpixels - s2) / 2;
+targetImageY = (screenYpixels - s1)/ 2;
 
 % Store image textures in an array
 images = [];
@@ -70,7 +68,7 @@ end
 instructions = 'Press the spacebar when you see an image that \n matches the one presented two prior.\n Press space to begin. \n';
 Screen('TextFont', window, 'Avenir');
 Screen('TextSize', window, 80);
-DrawFormattedText(window, intro, 'center', 'center', 0, [], [], [], 1.5);
+DrawFormattedText(window, instructions, 'center', 'center', 0, [], [], [], 1.5);
 Screen('Flip', window);
 
 % Wait until user presses a key
@@ -84,12 +82,10 @@ WaitSecs(1);
 fprintf('pressed,time,correct\n');
 % Display each image followed by fixation cross 
 for ii = 1:length(shuffledImageSampleIdx)
-% Draw the image so that its bottom edge aligns with the bottom of the
-    % window
+    % Draw the image so that it is centered 
     Screen('DrawTexture', window, images(ii), [],... 
-        [(targetImageX) (screenYpixels - s1)... 
-        (targetImageX + s2) (screenYpixels)], 0);
-    
+        [(targetImageX) (targetImageY)... 
+        (targetImageX + s2) (targetImageY + s1)], 0);
     % Save the time the screen was flipped
     stimulusStartTime = Screen('Flip', window);
     
@@ -127,5 +123,3 @@ for ii = 1:length(shuffledImageSampleIdx)
     WaitSecs(1);
 end
 Screen('Close');
-% Exit 
-%sca;

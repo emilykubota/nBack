@@ -23,6 +23,9 @@ PsychDefaultSetup(2);
 black = BlackIndex(0);
 white = WhiteIndex(0);
 gray = white / 2;
+
+% hide cursor
+HideCursor;
  
 % Open the window 
 PsychImaging('PrepareConfiguration');

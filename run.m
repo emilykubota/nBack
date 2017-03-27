@@ -20,6 +20,9 @@ PsychDefaultSetup(2);
 black = BlackIndex(0);
 white = WhiteIndex(0);
 gray = white / 2;
+
+% hide cursor
+HideCursor;
  
 % Open the window 
 PsychImaging('PrepareConfiguration');
@@ -62,15 +65,6 @@ degradedSourceImages = dir(fullfile(pwd,'stimuli','degraded','*.jpg'));
 % Show practice & run experiment based on subject number 
 cd scripts;
 practice
-
-% Gives option for more practice 
-%practiceAgain = input ('Practice again? (y = yes, n = no)', 's');
-%if strcmp(practiceAgain,'y')
-%    stim = 0;
-%    zero_back_practice
-%    one_back_practice
-%    two_back_practice 
-%end 
 
 % Transition to real experiment
 instructions = 'Ready to begin the real experiment? \n Press space.\n ';

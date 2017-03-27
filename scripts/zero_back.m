@@ -46,7 +46,7 @@ end
 % Display instructions for the task
 instructions = 'Press the spacebar when you see the image below.\n Press space to begin. ';
 Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 60);
+Screen('TextSize', window, 80);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
  
 % Display target image

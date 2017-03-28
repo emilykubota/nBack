@@ -46,7 +46,7 @@ end
 % Display instructions for the task
 instructions = 'Press the spacebar when you see the image below.\n Press space to begin. ';
 Screen('TextFont', window, 'Avenir');
-Screen('TextSize', window, 80);
+Screen('TextSize', window, 60);
 DrawFormattedText(window, instructions, 'center', .25 * screenYpixels, 0);
  
 % Display target image
@@ -57,7 +57,8 @@ Screen('DrawTexture', window, targetImageTexture, [],...
 Screen('Flip', window);
 
 % Wait until user presses a key
-KbWait; 
+[~, ~, ~] = KbWait([], 2);
+ 
 
 % Draw fixation cross
 drawFixation(window, rect, 40, black, 4);

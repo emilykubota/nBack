@@ -46,7 +46,7 @@ olddisabledkeys = DisableKeysForKbCheck(keys);
 
 % Set the number of runs. The script will run each condition this many
 % times. 
-nruns = 10;
+nruns = 12;
 
 % Preallocate a cell array to collect data. There are 10 trials per run and
 % 6 conditions (6*10), which we can muliply by the number of runs. There

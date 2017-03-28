@@ -56,7 +56,7 @@ Screen('DrawTexture', window, targetImageTexture, [],...
 Screen('Flip', window);
 
 % Wait until user presses a key
-KbWait; 
+[~, ~, ~] = KbWait([], 2);
 
 % Draw fixation cross
 drawFixation(window, rect, 40, black, 4);

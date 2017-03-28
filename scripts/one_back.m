@@ -65,7 +65,7 @@ DrawFormattedText(window, instructions, 'center','center', 0, [], [], [], 1.5);
 Screen('Flip', window);
  
 % Wait until user presses a key
-KbWait; 
+[~, ~, ~] = KbWait([], 2); 
 
 % Draw fixation cross
 drawFixation(window, rect, 40, black, 4);
@@ -99,7 +99,7 @@ for ii = 1:length(shuffledImageSampleIdx)
     %fprintf('%s,%0.4f,%s\n', keyWasPressed, responseTime, wasTarget); 
     
    % Fill in data matrix accordingly 
-    C(mi,1) = {trial}; %trial num ber
+    C(mi,1) = {trial}; %trial number
     C(mi,2) = {1};     %task (0,1,2)
     C(mi,3) = {stim};  %intact(0), degraded(1)
     C(mi,4) = filenames(ii);

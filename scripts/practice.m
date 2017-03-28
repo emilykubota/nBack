@@ -7,7 +7,7 @@ Screen('TextSize', window, 80);
 DrawFormattedText(window, intro, 'center', 'center', 0, [], [], [], 1.5);
 Screen('Flip', window);
 
-[~, ~, ~] = KbWait([], 2);
+KbWait;
 
 instructions = 'In this experiment, \n you will be asked to respond \n to faces as quickly and accurately as possible. \n';
 Screen('TextFont', window, 'Avenir');

@@ -1,6 +1,9 @@
 % This script goes through each file and creates an output for statistical
 % analysis 
 
+% Change to data directory 
+cd ../data
+
 % Look for text files in directory and store names in a cell
 s = dir('*.txt');
 file_list = {s.name};
@@ -102,10 +105,10 @@ T = cell2table(C, 'VariableNames', {'RT00', 'RT01', 'RT10', 'RT11', 'RT20'...
     'RT21', 'Acc00', 'Acc01', 'Acc10', 'Acc11', 'Acc20', 'Acc21'});
     
 % Name file using sub_num & write table 
-file_name = 'all_subs.txt';
+file_name = 'output.txt';
 
-% move to data file and write table
-cd ..
+% Move back to analysis folder and write table
+cd ../analysis
 writetable(T, file_name)   
         
 
